@@ -39,8 +39,8 @@ namespace Catalog.API.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetProduct")]
-        [ProducesResponseType((int)HttpStatusCode.NotFound )]
+        [HttpGet("{id}", Name = "GetProductById")]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound )]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> GetProductById(Guid id)
         {
@@ -70,7 +70,7 @@ namespace Catalog.API.Controllers
         {
             await _service.CreateAsync(product);
 
-            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+            return CreatedAtRoute("GetProductById", new { id = product.Id }, product);
         }
 
         [HttpPut]
@@ -81,7 +81,7 @@ namespace Catalog.API.Controllers
             return Ok(await _service.UpdateAsync(product));
         }
 
-        [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
+        [HttpDelete("{id}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> DeleteProduct(Guid id)
         {
